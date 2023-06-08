@@ -13,11 +13,6 @@ namespace Entities.Concrete
         public int ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }
-        /*
-        * Bir araba nesnesi oluşturunuz. "Car"
-        Özellik olarak : Id, BrandId, ColorId, ModelYear, DailyPrice, Description
-        alanlarını ekleyiniz. (Brand = Marka)
-        InMemory formatta GetById, GetAll, Add, Update, Delete oprasyonlarını yazınız.
-        */
+        
     }
 }
