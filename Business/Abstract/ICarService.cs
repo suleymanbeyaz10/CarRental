@@ -1,4 +1,5 @@
 ﻿using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Linq;
 
@@ -13,5 +14,7 @@ namespace Business.Abstract
         public void Delete(Car car);
         List<Car> GetCarsByBrandId(int brandId);
         List<Car> GetCarsByColorId(int colorId);
+        List<CarDetailDto> GetCarDetails();
+        
     }
 }
