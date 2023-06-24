@@ -2,8 +2,6 @@
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
-using System.Linq;
-
 
 namespace Business.Abstract
 {

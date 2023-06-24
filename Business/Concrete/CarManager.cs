@@ -40,10 +40,6 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-            /*
-             * Business Codes
-             * Yetkisi var mı
-             */
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
