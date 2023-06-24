@@ -29,17 +29,18 @@ namespace Business.Concrete
 
         public IDataResult<List<Rental>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
         public IDataResult<Rental> GetById(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == id));
         }
 
         public IResult Update(Rental rental)
         {
-            throw new NotImplementedException();
+            _rentalDal.Delete(rental);
+            return new SuccessResult();
         }
     }
 }

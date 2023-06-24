@@ -29,7 +29,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.CarNameInvalid);
             }
             return new SuccessResult(Messages.CarAdded);
-            
+
         }
 
         public IResult Delete(Car car)
@@ -45,12 +45,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return new DataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId), true, "Ürünler listelendi");
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(b => b.BrandId == brandId), "Ürünler listelendi");
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(co => co.ColorId == colorId));
         }
 
         public IResult Update(Car car)
@@ -58,9 +58,28 @@ namespace Business.Concrete
             _carDal.Update(car);
             return new SuccessResult();
         }
-        public IDataResult<List<CarDetailDto>> GetCarDetails()
-        {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
-        }
+        //public IDataResult<List<CarDetailDto>> GetCarDetails(int carId)
+        //{
+        //    var dbCarList = _carDal.GetAll(c => c.Id == carId);
+        //    List<CarDetailDto> carDetailDtos = new List<CarDetailDto>();
+        //    foreach (var dbCar in dbCarList)
+        //    {
+        //        CarDetailDto carDetailDto = new CarDetailDto()
+        //        {
+        //            CarId = dbCar.Id,
+        //            CarName = dbCar.Name,
+        //        };
+        //        carDetailDtos.Add(carDetailDto);
+        //    }
+
+
+        //    //var carDetailDtos = dbCarList.Select(c => new CarDetailDto() 
+        //    //{ 
+        //    //    CarName = c.Name, 
+        //    //    CarId = carId 
+        //    //}).ToList();
+
+        //    return new SuccessDataResult<List<CarDetailDto>>(carDetailDtos);
+        //}
     }
 }
