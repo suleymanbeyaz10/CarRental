@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
@@ -19,7 +20,7 @@ namespace WebAPI.Controllers
 
         
         [HttpGet("getall")]
-        
+        [Authorize(Roles = "Cars.getall")]
         public IActionResult GetAll() 
         {
             var result = _carService.GetAll();
@@ -69,7 +70,7 @@ namespace WebAPI.Controllers
 
 
         [HttpGet("getbycolorid")]
-
+        
         public IActionResult GetCarsByColorId(int id)
         {
             var result = _carService.GetCarsByColorId(id);
