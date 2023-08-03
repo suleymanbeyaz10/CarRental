@@ -5,12 +5,15 @@ using System;
 
 namespace Business.Abstract
 {
-    public interface ICarImageService
+    public interface  ICarImageService
     {
-        IResult Add(IFormFile file, CarImage carImage);
+        IResult Add(CarImage carImage, IFormFile file);
         IResult Update(IFormFile file, CarImage carImage);
         IResult Delete(CarImage carImage);
         IDataResult<List<CarImage>> GetAll();
+        IDataResult<List<CarImage>> GetByCarId(int carId);
         IDataResult<CarImage> GetByImageId(int imageId);
+        
+
     }
 }

@@ -1,10 +1,13 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
+using Core.Extensions;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Core.Utilities.IoC;
+using Core.DependencyResolvers;
 
 namespace WebAPI
 {
@@ -64,6 +67,10 @@ namespace WebAPI
                 };
             });
 
+            builder.Services.AddDependencyResolvers(new ICoreModule[]
+            {
+                new CoreModule()
+            });
 
 
             //Autofac attribution
@@ -82,7 +89,7 @@ namespace WebAPI
                 app.UseSwaggerUI();
             }
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader());
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
@@ -91,6 +98,8 @@ namespace WebAPI
             app.UseAuthorization();
 
             app.MapControllers();
+
+            app.UseStaticFiles("/static");
 
             app.Run();
         }

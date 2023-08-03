@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -20,7 +22,7 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        //[SecuredOperation("product.add,admin")]
+        [SecuredOperation("cars.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
@@ -34,14 +36,20 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
+        public IDataResult<CarDetailDto> GetCarDetails(int carId)
+        {
+            return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetails(carId));
+        }
+
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(b => b.BrandId == brandId), "Ürünler listelendi");
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(b => b.BrandId == brandId));
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int colorId)
@@ -54,28 +62,28 @@ namespace Business.Concrete
             _carDal.Update(car);
             return new SuccessResult();
         }
-        //public IDataResult<List<CarDetailDto>> GetCarDetails(int carId)
+        //public idataresult<list<cardetaildto>> getcardetails(int carid)
         //{
-        //    var dbCarList = _carDal.GetAll(c => c.Id == carId);
-        //    List<CarDetailDto> carDetailDtos = new List<CarDetailDto>();
-        //    foreach (var dbCar in dbCarList)
+        //    var dbcarlist = _cardal.getall(c => c.id == carid);
+        //    list<cardetaildto> cardetaildtos = new list<cardetaildto>();
+        //    foreach (var dbcar in dbcarlist)
         //    {
-        //        CarDetailDto carDetailDto = new CarDetailDto()
+        //        cardetaildto cardetaildto = new cardetaildto()
         //        {
-        //            CarId = dbCar.Id,
-        //            CarName = dbCar.Name,
+        //            carid = dbcar.id,
+        //            carname = dbcar.name,
         //        };
-        //        carDetailDtos.Add(carDetailDto);
+        //        cardetaildtos.add(cardetaildto);
         //    }
 
 
-        //    //var carDetailDtos = dbCarList.Select(c => new CarDetailDto() 
+        //    //var cardetaildtos = dbcarlist.select(c => new cardetaildto() 
         //    //{ 
-        //    //    CarName = c.Name, 
-        //    //    CarId = carId 
-        //    //}).ToList();
+        //    //    carname = c.name, 
+        //    //    carid = carid 
+        //    //}).tolist();
 
-        //    return new SuccessDataResult<List<CarDetailDto>>(carDetailDtos);
+        //    return new successdataresult<list<cardetaildto>>(cardetaildtos);
         //}
     }
 }

@@ -53,9 +53,20 @@ namespace WebAPI.Controllers
 
         [HttpPost("update")]
 
-        public IActionResult update(Rental Rental)
+        public IActionResult Update(Rental Rental)
         {
             var result = _rentalService.Update(Rental);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getrentdetails")]
+        public IActionResult GetRentDetails()
+        {
+            var result = _rentalService.GetRentDetails();
             if (result.Success)
             {
                 return Ok(result);
