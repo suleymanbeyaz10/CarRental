@@ -17,7 +17,9 @@ namespace DataAccess.Concrete.EntityFramework
                 var result = from c in context.Cars
                              join b in context.Brands on c.BrandId equals b.BrandId
                              join p in context.Colors on c.ColorId equals p.ColorId
-                             join i in context.CarImages on c.Id equals i.CarId
+                             join i in context.CarImages on c.Id equals i.CarId into cImages
+                             from ci in cImages.DefaultIfEmpty()
+                             where c.Id == carId
                              select new CarDetailDto
                              {
                                  CarId = c.Id,
@@ -40,9 +42,10 @@ namespace DataAccess.Concrete.EntityFramework
                 //                select new {ArabaImagePath=cI.ImagePath};
 
 
-
-                carDetails.CarImages = carImages.ToList();
-
+                if (carDetails != null && carImages != null)
+                {
+                    carDetails.CarImages = carImages.ToList();
+                }
 
 
                 return carDetails;
